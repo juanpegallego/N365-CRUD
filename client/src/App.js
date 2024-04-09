@@ -1,18 +1,29 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import PaymentsList from "./Components/PaymentsList";
+import PaymentsListLogic from "./Components/PaymentsListLogic";
 import NewPaymentFormLogic from "./Components/NewPaymentFormLogic";
 import Menu from "./Components/NavBar";
+import Login from "./Components/Login"; // Importar el componente Login aquí
+import styled from "styled-components";
+
+const StyledWrapper = styled.div`
+  display: block;
+  max-width: 1184px;
+  width: 100%;
+  padding: 15px 50px 0 15px;
+  margin: 15px;
+`;
 
 export default function App() {
   return (
     <BrowserRouter>
       <Menu />
-      <section>
+      <StyledWrapper>
         <Routes>
-          <Route path="/" element={<PaymentsList />} />
+          <Route path="/login" element={<Login />} />{" "}
+          <Route path="/" element={<PaymentsListLogic />} />
           <Route path="/payments/new" element={<NewPaymentFormLogic />} />
         </Routes>
-      </section>
+      </StyledWrapper>
     </BrowserRouter>
   );
 }

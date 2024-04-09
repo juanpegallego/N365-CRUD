@@ -1,4 +1,4 @@
-import { React, u } from "react";
+import { React } from "react";
 
 function PaymentUI({ handleSubmit, handleChange, loading }) {
   return (
