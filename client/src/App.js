@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import PaymentsListLogic from "./Components/PaymentsListLogic";
 import NewPaymentFormLogic from "./Components/NewPaymentFormLogic";
 import Menu from "./Components/NavBar";
-import Login from "./Components/Login"; // Importar el componente Login aquí
+import Login from "./Components/Login";
 import styled from "styled-components";
 
 const StyledWrapper = styled.div`

@@ -30,8 +30,10 @@ export default function PaymentsListLogic() {
   const [filteredPayments, setFilteredPayments] = useState([]);
 
   const loadPayments = async () => {
-    const response = await fetch("http://localhost:3000/payments");
+    const response = await fetch("http://localhost:3000/");
     const data = await response.json();
+
+    console.log(data);
     setPayments(data);
     setFilteredPayments(data);
   };
@@ -54,13 +56,16 @@ export default function PaymentsListLogic() {
     loadPayments();
   }, []);
   useEffect(() => {
-    // Filtrar y ordenar los pagos por fecha
-    const filteredAndSortedPayments = payments
-      .filter((payment) => filteredPayments.some(({ id }) => id === payment.id)) // Filtrar solo los pagos que están presentes en filteredPayments
-      .sort((a, b) => new Date(a.payment_date) - new Date(b.payment_date)); // Ordenar por fecha ascendente
+    if (Array.isArray(payments)) {
+      const filteredAndSortedPayments = payments
+        .filter((payment) =>
+          filteredPayments.some(({ id }) => id === payment.id)
+        )
+        .sort((a, b) => new Date(a.payment_date) - new Date(b.payment_date));
 
-    setFilteredPayments(filteredAndSortedPayments);
-  }, [payments]); // Ejecutar cuando cambian los pagos
+      setFilteredPayments(filteredAndSortedPayments);
+    }
+  }, []); // Dependencia vacía para ejecutar solo una vez al montar el componente
 
   return (
     <StyledPaymentsMain>

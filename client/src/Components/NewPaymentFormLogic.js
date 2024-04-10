@@ -31,6 +31,7 @@ export default function TaskForm() {
       method: "POST",
       body: JSON.stringify(payment),
       headers: { "content-type": "application/json" },
+      credentials: "include",
     });
     const data = await res.json();
     setLoading(false);

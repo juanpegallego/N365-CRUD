@@ -1,7 +1,8 @@
-const users_pool = require("../db"); // Asegúrate de haber configurado correctamente la conexión a la base de datos
+const { users_pool } = require("../db"); // Asegúrate de haber configurado correctamente la conexión a la base de datos
 
 async function login(req, res) {
   const { username, password } = req.body;
+
   try {
     const result = await users_pool.query(
       "SELECT * FROM users WHERE username = $1 AND password = $2",

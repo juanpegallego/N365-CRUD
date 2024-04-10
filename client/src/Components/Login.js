@@ -16,20 +16,22 @@ function Login() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await fetch("/api/login", {
+      const response = await fetch("http://localhost:3000/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ username, password }),
+        credentials: "include", // Incluir esta opción
       });
-      const data = await response.json();
-      if (response.ok) {
-        console.log(data.message); // Mensaje de autenticación exitosa
-        // Aquí podrías redirigir a la siguiente página o realizar otra acción
-      } else {
-        throw new Error(data.message);
+
+      console.log(response);
+
+      if (!response.ok) {
+        throw new Error("Error en la solicitud: " + response.statusText);
       }
+
+      const data = await response.json();
     } catch (error) {
       console.error("Error de inicio de sesión:", error.message);
       setError(error.message);
