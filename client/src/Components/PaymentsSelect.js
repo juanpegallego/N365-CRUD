@@ -5,9 +5,15 @@ import styled from "styled-components";
 
 const StyledAside = styled.aside`
   display: flex;
-  flex-direction: row;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-start;
   margin: 20px 0;
+  width: 100%;
+`;
+
+const StyledSelectorsContainer = styled.div`
+  display: flex;
+  flex-direction: row;
   width: 100%;
 `;
 
@@ -134,70 +140,73 @@ function PaymentsSelect({ payments, setFilteredPayments }) {
   }, [filters, payments]);
   return (
     <StyledAside>
-      <select
-        onChange={(e) => handleFilterChange("filterDate", e.target.value)}
-        value={filters.filterDate}
-        style={{
-          maxHeight: "24px",
-          cursor: "pointer",
-          borderRadius: "0px",
-          border: "none",
-          margin: "0 5px 0 0",
-        }}
-      >
-        <option hidden value="">
-          DATE
-        </option>
-        {uniqueFilters.uniqueDates
-          .sort((a, b) => new Date(a) - new Date(b))
-          .map((date) => (
-            <option key={date} value={date}>
-              {new Date(date).toLocaleDateString("en-EN")}
-            </option>
-          ))}
-      </select>
+      <StyledSelectorsContainer>
+        <select
+          onChange={(e) => handleFilterChange("filterDate", e.target.value)}
+          value={filters.filterDate}
+          style={{
+            maxHeight: "24px",
+            cursor: "pointer",
+            borderRadius: "0px",
+            border: "none",
+            margin: "0 5px 0 0",
+          }}
+        >
+          <option hidden value="">
+            DATE
+          </option>
+          {uniqueFilters.uniqueDates
+            .sort((a, b) => new Date(a) - new Date(b))
+            .map((date) => (
+              <option key={date} value={date}>
+                {new Date(date).toLocaleDateString("en-EN")}
+              </option>
+            ))}
+        </select>
 
-      <FilterSelect
-        filters={filters}
-        handleFilterChange={handleFilterChange}
-        filterTypeString={"filterAmount"}
-        filterText={"AMOUNT"}
-        filtros={uniqueFilters.uniqueAmounts}
-      />
+        <FilterSelect
+          filters={filters}
+          handleFilterChange={handleFilterChange}
+          filterTypeString={"filterAmount"}
+          filterText={"AMOUNT"}
+          filtros={uniqueFilters.uniqueAmounts}
+        />
 
-      <FilterSelect
-        filters={filters}
-        handleFilterChange={handleFilterChange}
-        filterTypeString={"filterRecipient"}
-        filterText={"RECIPIENT"}
-        filtros={uniqueFilters.uniqueRecipients}
-      />
+        <FilterSelect
+          filters={filters}
+          handleFilterChange={handleFilterChange}
+          filterTypeString={"filterRecipient"}
+          filterText={"RECIPIENT"}
+          filtros={uniqueFilters.uniqueRecipients}
+        />
 
-      <FilterSelect
-        filters={filters}
-        handleFilterChange={handleFilterChange}
-        filterTypeString={"filterType"}
-        filterText={"CONCEPT"}
-        filtros={uniqueFilters.uniqueTypes}
-      />
+        <FilterSelect
+          filters={filters}
+          handleFilterChange={handleFilterChange}
+          filterTypeString={"filterType"}
+          filterText={"CONCEPT"}
+          filtros={uniqueFilters.uniqueTypes}
+        />
 
-      <button
-        style={{
-          maxHeight: "24px",
-          cursor: "pointer",
-          borderRadius: "0px",
-          border: "none",
-        }}
-        onClick={handleFilterReset}
-      >
-        CLEAN FILTER
-      </button>
-
-      <SearchInput
-        style={{ maxHeight: "30px", cursor: "pointer" }}
-        filters={filters}
-        handleFilterChange={handleFilterChange}
-      />
+        <button
+          style={{
+            maxHeight: "24px",
+            cursor: "pointer",
+            borderRadius: "0px",
+            border: "none",
+          }}
+          onClick={handleFilterReset}
+        >
+          CLEAN FILTER
+        </button>
+      </StyledSelectorsContainer>
+      <div>
+        <SearchInput
+          style={{ maxHeight: "30px", cursor: "pointer" }}
+          filters={filters}
+          handleFilterChange={handleFilterChange}
+        />
+      </div>
     </StyledAside>
   );
 }

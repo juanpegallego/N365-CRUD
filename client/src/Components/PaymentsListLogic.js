@@ -14,6 +14,7 @@ const StyledPaymentsList = styled.div`
   margin: 20px 0;
   background: #2a2e3e;
   width: 100%;
+  min-width: 800px;
 `;
 
 const StyledPaymentsListTitle = styled.thead`
@@ -45,33 +46,17 @@ export default function PaymentsListLogic({ userIsLogged }) {
     }
   };
 
-  const handleDelete = async (id) => {
-    try {
-      await fetch(`http://localhost:3000/payments/${id}`, {
-        method: "DELETE",
-      });
-      setPayments(payments.filter((payment) => payment.id !== id));
-      setFilteredPayments(
-        filteredPayments.filter((payment) => payment.id !== id)
-      );
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
-
   useEffect(() => {
     loadPayments();
   }, []);
-  useEffect(() => {
-    console.log("userisLogged en list", userIsLogged);
-  }, []);
+
   useEffect(() => {
     if (Array.isArray(payments)) {
       const filteredAndSortedPayments = payments
         .filter((payment) =>
           filteredPayments.some(({ id }) => id === payment.id)
         )
-        .sort((a, b) => new Date(a.payment_date) - new Date(b.payment_date));
+        .sort((a, b) => new Date(b.payment_date) - new Date(a.payment_date)); // Orden descendente por fecha
 
       setFilteredPayments(filteredAndSortedPayments);
     }
@@ -108,8 +93,11 @@ export default function PaymentsListLogic({ userIsLogged }) {
                 date={payment.payment_date}
                 type={payment.payment_type}
                 recipient={payment.payment_recipient}
-                handleDelete={handleDelete}
                 StyledPaymentsTH={StyledPaymentsTH}
+                setPayments={setPayments}
+                payments={payments}
+                setFilteredPayments={setFilteredPayments}
+                filteredPayments={filteredPayments}
               />
             ))
           ) : (

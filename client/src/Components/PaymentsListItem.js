@@ -25,9 +25,25 @@ function PaymentsListItem({
   date,
   type,
   recipient,
-  handleDelete,
   StyledPaymentsTH,
+  setPayments,
+  payments,
+  setFilteredPayments,
+  filteredPayments,
 }) {
+  const handleDelete = async (id) => {
+    try {
+      await fetch(`http://localhost:3000/payments/${id}`, {
+        method: "DELETE",
+      });
+      setPayments(payments.filter((payment) => payment.id !== id));
+      setFilteredPayments(
+        filteredPayments.filter((payment) => payment.id !== id)
+      );
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
   function formatDate(dateString) {
     const options = { year: "numeric", month: "long", day: "numeric" };
     return new Date(dateString).toLocaleDateString("en-EN", options);

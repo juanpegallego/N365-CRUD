@@ -1,47 +1,54 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
-import LogoutButton from "./LogoutButton";
 
-// Definir el componente styled fuera del componente funcional
 const StyledNavBarWrapper = styled.div`
   display: flex;
   justify-content: center;
-  width: 100%;
-  padding: 15px 50px;
+  padding: 15px 0px;
+  width: 800px;
+
   background: #757c99;
+  margin: auto;
 `;
 
 const StyledNavBar = styled.div`
   display: flex;
   justify-content: space-between;
-  width: 100%;
+  width: 800px;
   background: #757c99;
-  max-width: 50%;
-`;
-
-const StyledButton = styled.button`
-  cursor: pointer;
-  padding: 5px 15px;
-  background: green;
-  border-radius: 8px;
-  border: none;
-  margin: 0 10px;
-  color: white;
+  padding: 0 15px;
 `;
 
 export default function NavBar({ userIsLogged, userNameLabel }) {
-  const navigate = useNavigate();
   return (
     <StyledNavBarWrapper>
       <StyledNavBar>
-        <Link style={{ color: "white", textDecoration: "none" }} to="/">
-          HOME
-        </Link>
-        <StyledButton onClick={() => navigate("/payments/new")}>
-          Add Payment
-        </StyledButton>
+        <nav
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            minWidth: "220px",
+          }}
+        >
+          <Link style={{ color: "white", textDecoration: "none" }} to="/">
+            List Payments
+          </Link>
 
-        <Link style={{ color: "white", textDecoration: "none" }} to="/login">
+          <Link
+            style={{ color: "white", textDecoration: "none" }}
+            to="/payments/new"
+          >
+            New Payment
+          </Link>
+        </nav>
+
+        <Link
+          style={{
+            color: "white",
+            textDecoration: "none",
+          }}
+          to="/login"
+        >
           {userIsLogged ? userNameLabel : "Account"}
         </Link>
       </StyledNavBar>

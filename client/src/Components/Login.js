@@ -1,6 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import LoginFormUI from "./LoginFormUI";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+import Cookies from "js-cookie";
+import LogoffButton from "./LogoutButton";
 
 function Login({
   userIsLogged,
@@ -10,7 +13,6 @@ function Login({
 }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
 
   const navigate = useNavigate();
   const handleUsernameChange = (event) => {
@@ -39,14 +41,23 @@ function Login({
 
       const data = await response.json();
       if (data) {
+        Cookies.set("userName", username); // Guardar el nombre de usuario en la cookie
         setUsernameLabel(data.message);
         setUserIsLogged(true);
-
+        Swal.fire({
+          title: "Welcome!",
+          icon: "success",
+          confirmButtonText: "Enter",
+        });
         navigate("/");
       }
     } catch (error) {
-      console.error("Error de inicio de sesión:", error.message);
-      setError(error.message);
+      Swal.fire({
+        title: "Invalid username or password!",
+        text: "Try again",
+        icon: "error",
+        confirmButtonText: "Ok",
+      });
     }
   };
 
@@ -67,18 +78,14 @@ function Login({
       }
 
       const data = await response.json();
+      setUserIsLogged(false);
     } catch (error) {
       console.error("Error de inicio de sesión:", error.message);
-      setError(error.message);
     }
   };
 
-  useEffect(() => {
-    console.log("logged?", userIsLogged);
-  }, []);
   return (
     <>
-      {error && <p style={{ color: "red" }}>{error}</p>}
       {!userIsLogged && (
         <div>
           <h2 style={{ color: "white" }}>Login</h2>
@@ -95,19 +102,13 @@ function Login({
       )}
 
       {userIsLogged && (
-        <p style={{ color: "white" }}>
-          U are already logged as <span>{userNameLabel}</span>
-        </p>
+        <div>
+          <p style={{ color: "white" }}>
+            U are already logged as <span>{userNameLabel}</span>
+          </p>
+          <LogoffButton handleLogout={handleLogout} />
+        </div>
       )}
-
-      <LoginFormUI
-        handleSubmit={handleSubmit}
-        username={username}
-        handleUsernameChange={handleUsernameChange}
-        password={password}
-        handlePasswordChange={handlePasswordChange}
-        handleLogout={handleLogout}
-      />
     </>
   );
 }

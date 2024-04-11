@@ -1,5 +1,5 @@
 import { React } from "react";
-
+import { StyledButton } from "./utils/customStyled";
 import { StyledInput, StyledLabel } from "./utils/customStyled";
 
 function PaymentUI({ handleSubmit, handleChange, loading }) {
@@ -39,7 +39,11 @@ function PaymentUI({ handleSubmit, handleChange, loading }) {
           placeholder="Recipient"
         ></StyledInput>
 
-        <button>{loading ? "Loading" : "Save"}</button>
+        {loading ? (
+          <StyledButton bgc={"red"}>Loading</StyledButton>
+        ) : (
+          <StyledButton bgc={"green"}>Save</StyledButton>
+        )}
       </form>
     </div>
   );

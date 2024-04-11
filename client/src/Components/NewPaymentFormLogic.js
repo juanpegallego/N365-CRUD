@@ -2,7 +2,7 @@ import { React, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import PaymentUI from "./NewPaymentFormUI";
 
-export default function TaskForm() {
+export default function TaskForm({ userIsLogged }) {
   const [payment, setPayment] = useState({
     payment_amount: "",
     payment_date: "",
@@ -22,7 +22,6 @@ export default function TaskForm() {
     );
 
     if (!isNotEmpty) {
-      console.log("Ningún campo puede estar vacío.");
       return;
     }
 
@@ -45,11 +44,13 @@ export default function TaskForm() {
   return (
     <div>
       <h2 style={{ color: "white" }}>Create Task</h2>
-      <PaymentUI
-        handleChange={handleChange}
-        handleSubmit={handleSubmit}
-        loading={loading}
-      />
+      {userIsLogged && (
+        <PaymentUI
+          handleChange={handleChange}
+          handleSubmit={handleSubmit}
+          loading={loading}
+        />
+      )}
     </div>
   );
 }
