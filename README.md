@@ -7,22 +7,24 @@ Este proyecto consiste en una aplicación  de gestión de pagos. Donde se permit
 
 El proyecto está organizado en las siguientes carpetas:
 
-    client: Contiene el código del cliente, desarrollado con React.js.
-    server: Contiene el código del servidor, desarrollado con Node.js y Express.js.
-    database: Contiene el archivo db.sql con las instrucciones para la creación de las tablas en la base de datos.
+##### client: Contiene el código del cliente, desarrollado con React.js.
+##### server: Contiene el código del servidor, desarrollado con Node.js y Express.js.
+##### database: Contiene el archivo db.sql con las instrucciones para la creación de las tablas en la base de datos.
 
 ### Instalación
 
 Para ejecutar este proyecto , seguir estos pasos:
 
-    Clona repo desde GitHub:
-
+Clona repo desde GitHub:
+```
 git clone https://github.com/juanpegallego/N365-CRUD
-
-    Instalar  dependencias del cliente y del servidor. En root, ejecutar:
-
+```
+    
+Instalar  dependencias del cliente y del servidor. En root, ejecutar:
+```
 cd N365-CRUD
 npm install && cd client npm install
+```
 
 Configuración
 Base de Datos
@@ -73,18 +75,20 @@ Una vez configurado, puedes iniciar el servidor y el cliente por separado.
 
 
 
-Servidor
+##### Servidor
 
 En root, ejecutar:
 
+```
 npm run server
 
+```
 El servidor estará disponible en http://localhost:3000.
-Cliente
+##### Cliente
 En root, ejecutar:
-
+```
 cd client && npm start
-
+```
 El cliente estará disponible en http://localhost:3001.
 
 
