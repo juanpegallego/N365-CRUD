@@ -1,10 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import LoginFormUI from "./LoginFormUI";
+import { useNavigate } from "react-router-dom";
 
-function Login() {
+function Login({
+  userIsLogged,
+  setUserIsLogged,
+  setUsernameLabel,
+  userNameLabel,
+}) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
+  const navigate = useNavigate();
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
   };
@@ -15,6 +23,7 @@ function Login() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
     try {
       const response = await fetch("http://localhost:3000/login", {
         method: "POST",
@@ -22,10 +31,36 @@ function Login() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ username, password }),
-        credentials: "include", // Incluir esta opción
+        credentials: "include",
       });
+      if (!response.ok) {
+        throw new Error("Error en la solicitud: " + response.statusText);
+      }
 
-      console.log(response);
+      const data = await response.json();
+      if (data) {
+        setUsernameLabel(data.message);
+        setUserIsLogged(true);
+
+        navigate("/");
+      }
+    } catch (error) {
+      console.error("Error de inicio de sesión:", error.message);
+      setError(error.message);
+    }
+  };
+
+  const handleLogout = async (event) => {
+    event.preventDefault();
+    try {
+      const response = await fetch("http://localhost:3000/logout", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username, password }),
+        credentials: "include",
+      });
 
       if (!response.ok) {
         throw new Error("Error en la solicitud: " + response.statusText);
@@ -38,32 +73,42 @@ function Login() {
     }
   };
 
+  useEffect(() => {
+    console.log("logged?", userIsLogged);
+  }, []);
   return (
-    <div>
-      <h2>Iniciar sesión</h2>
+    <>
       {error && <p style={{ color: "red" }}>{error}</p>}
-      <form onSubmit={handleSubmit}>
+      {!userIsLogged && (
         <div>
-          <label htmlFor="username">Nombre de usuario:</label>
-          <input
-            type="text"
-            id="username"
-            value={username}
-            onChange={handleUsernameChange}
+          <h2 style={{ color: "white" }}>Login</h2>
+
+          <LoginFormUI
+            handleSubmit={handleSubmit}
+            username={username}
+            handleUsernameChange={handleUsernameChange}
+            password={password}
+            handlePasswordChange={handlePasswordChange}
+            handleLogout={handleLogout}
           />
         </div>
-        <div>
-          <label htmlFor="password">Contraseña:</label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={handlePasswordChange}
-          />
-        </div>
-        <button type="submit">Iniciar sesión</button>
-      </form>
-    </div>
+      )}
+
+      {userIsLogged && (
+        <p style={{ color: "white" }}>
+          U are already logged as <span>{userNameLabel}</span>
+        </p>
+      )}
+
+      <LoginFormUI
+        handleSubmit={handleSubmit}
+        username={username}
+        handleUsernameChange={handleUsernameChange}
+        password={password}
+        handlePasswordChange={handlePasswordChange}
+        handleLogout={handleLogout}
+      />
+    </>
   );
 }
 

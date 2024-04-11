@@ -1,5 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import LogoutButton from "./LogoutButton";
 
 // Definir el componente styled fuera del componente funcional
 const StyledNavBarWrapper = styled.div`
@@ -28,7 +29,7 @@ const StyledButton = styled.button`
   color: white;
 `;
 
-export default function NavBar() {
+export default function NavBar({ userIsLogged, userNameLabel }) {
   const navigate = useNavigate();
   return (
     <StyledNavBarWrapper>
@@ -39,6 +40,10 @@ export default function NavBar() {
         <StyledButton onClick={() => navigate("/payments/new")}>
           Add Payment
         </StyledButton>
+
+        <Link style={{ color: "white", textDecoration: "none" }} to="/login">
+          {userIsLogged ? userNameLabel : "Account"}
+        </Link>
       </StyledNavBar>
     </StyledNavBarWrapper>
   );

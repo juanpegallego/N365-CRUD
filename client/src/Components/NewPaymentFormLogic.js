@@ -44,7 +44,7 @@ export default function TaskForm() {
 
   return (
     <div>
-      <p>Create Task</p>
+      <h2 style={{ color: "white" }}>Create Task</h2>
       <PaymentUI
         handleChange={handleChange}
         handleSubmit={handleSubmit}

@@ -1,3 +1,4 @@
+import { React, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import PaymentsListLogic from "./Components/PaymentsListLogic";
 import NewPaymentFormLogic from "./Components/NewPaymentFormLogic";
@@ -14,14 +15,33 @@ const StyledWrapper = styled.div`
 `;
 
 export default function App() {
+  const [userIsLogged, setUserIsLogged] = useState(false);
+  const [userNameLabel, setUsernameLabel] = useState(undefined);
+
   return (
     <BrowserRouter>
-      <Menu />
+      <Menu userIsLogged={userIsLogged} userNameLabel={userNameLabel} />
       <StyledWrapper>
         <Routes>
-          <Route path="/login" element={<Login />} />{" "}
-          <Route path="/" element={<PaymentsListLogic />} />
-          <Route path="/payments/new" element={<NewPaymentFormLogic />} />
+          <Route
+            path="/login"
+            element={
+              <Login
+                setUserIsLogged={setUserIsLogged}
+                setUsernameLabel={setUsernameLabel}
+                userIsLogged={userIsLogged}
+                userNameLabel={userNameLabel}
+              />
+            }
+          />{" "}
+          <Route
+            path="/"
+            element={<PaymentsListLogic userIsLogged={userIsLogged} />}
+          />
+          <Route
+            path="/payments/new"
+            element={<NewPaymentFormLogic userIsLogged={userIsLogged} />}
+          />
         </Routes>
       </StyledWrapper>
     </BrowserRouter>

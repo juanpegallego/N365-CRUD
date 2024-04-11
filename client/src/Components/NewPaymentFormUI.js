@@ -1,37 +1,45 @@
 import { React } from "react";
 
+import { StyledInput, StyledLabel } from "./utils/customStyled";
+
 function PaymentUI({ handleSubmit, handleChange, loading }) {
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        <input
+        <StyledLabel htmlFor="payment_amount">Amount</StyledLabel>
+        <StyledInput
           type="number"
           name="payment_amount"
           onChange={handleChange}
           placeholder="Amount"
-        ></input>
+        ></StyledInput>
+        <StyledLabel htmlFor="payment_date">Date</StyledLabel>
 
-        <input
+        <StyledInput
           type="date"
           name="payment_date"
           onChange={handleChange}
           placeholder="Date"
-        ></input>
-        <input
+        ></StyledInput>
+
+        <StyledLabel htmlFor="payment_type">Concept</StyledLabel>
+
+        <StyledInput
           type="text"
           name="payment_type"
           onChange={handleChange}
           placeholder="Reason"
-        ></input>
+        ></StyledInput>
+        <StyledLabel htmlFor="payment_recipient">Recipient</StyledLabel>
 
-        <input
+        <StyledInput
           type="text"
           name="payment_recipient"
           onChange={handleChange}
           placeholder="Recipient"
-        ></input>
+        ></StyledInput>
 
-        <button>{loading ? "Cargando" : "Guardar"}</button>
+        <button>{loading ? "Loading" : "Save"}</button>
       </form>
     </div>
   );

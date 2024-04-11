@@ -25,17 +25,24 @@ const StyledPaymentsTH = styled.th`
   color: white;
 `;
 
-export default function PaymentsListLogic() {
+export default function PaymentsListLogic({ userIsLogged }) {
   const [payments, setPayments] = useState([]);
   const [filteredPayments, setFilteredPayments] = useState([]);
 
   const loadPayments = async () => {
-    const response = await fetch("http://localhost:3000/");
-    const data = await response.json();
-
-    console.log(data);
-    setPayments(data);
-    setFilteredPayments(data);
+    try {
+      const response = await fetch("http://localhost:3000/", {
+        credentials: "include",
+      });
+      if (!response.ok) {
+        throw new Error("Error al cargar los pagos");
+      }
+      const data = await response.json();
+      setPayments(data);
+      setFilteredPayments(data);
+    } catch (error) {
+      console.error("Error al cargar los pagos:", error);
+    }
   };
 
   const handleDelete = async (id) => {
@@ -56,6 +63,9 @@ export default function PaymentsListLogic() {
     loadPayments();
   }, []);
   useEffect(() => {
+    console.log("userisLogged en list", userIsLogged);
+  }, []);
+  useEffect(() => {
     if (Array.isArray(payments)) {
       const filteredAndSortedPayments = payments
         .filter((payment) =>
@@ -65,7 +75,7 @@ export default function PaymentsListLogic() {
 
       setFilteredPayments(filteredAndSortedPayments);
     }
-  }, []); // Dependencia vacía para ejecutar solo una vez al montar el componente
+  }, []);
 
   return (
     <StyledPaymentsMain>

@@ -48,7 +48,6 @@ function PaymentsSelect({ payments, setFilteredPayments }) {
   };
   const handleFilter = () => {
     if (payments && Array.isArray(payments)) {
-      // Verificar si payments no es null o undefined y si es un array
       let filteredPayments = payments.filter((payment) => {
         const { payment_amount, payment_type, payment_recipient } = payment;
 
@@ -108,7 +107,6 @@ function PaymentsSelect({ payments, setFilteredPayments }) {
 
   useEffect(() => {
     if (payments && Array.isArray(payments)) {
-      // Verificar si payments no es null o undefined y si es un array
       const uniqueDates = [
         ...new Set(payments.map((payment) => payment.payment_date)),
       ];
@@ -131,6 +129,9 @@ function PaymentsSelect({ payments, setFilteredPayments }) {
     }
   }, [payments]);
 
+  useEffect(() => {
+    handleFilter();
+  }, [filters, payments]);
   return (
     <StyledAside>
       <select
