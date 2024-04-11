@@ -1,4 +1,4 @@
-Proyecto N365-CHALLENGE
+##Proyecto N365-CHALLENGE
 
 Este proyecto consiste en una aplicación  de gestión de pagos. Donde se permite cargar nuevos pagos o trasnferencias, visualizarlas y eliminar en caso de ser necesario.
 
