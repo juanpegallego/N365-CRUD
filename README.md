@@ -31,6 +31,9 @@ Antes de ejecutar el servidor, tener PostgreSQL instalado en el sistema. Luego, 
 
 Las instrucciones son las siguientes:
 
+
+
+```
 CREATE DATABASE paymentsdb
 
 CREATE TABLE payment (
@@ -48,6 +51,7 @@ CREATE TABLE users (
     username VARCHAR(50),
     password VARCHAR(255) 
 );  
+```
 
 // Las pruebas fueron hechas con el usuario 'n365' y la clave 'n365' hasheada que seria '$2a$10$k14dow0JYfa7reVJU/GrVeHLw2jD.kbrsJyBuM9RHj32/0v1Cgt86'
 // Para agregar este mismo ejemplo ejecutar el siguiente comando:
