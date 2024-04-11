@@ -6,11 +6,11 @@ const StyledSearchBtn = styled.button`
   background: white;
   border: none;
   min-width: 100px;
-  height: 20px;
   cursor: pointer;
   border-radius: 0px;
   background: grey;
   color: white;
+  padding: 8px 12px;
 `;
 const StyledSearchInput = styled.input`
   margin: 20px 0 0 0;
@@ -24,7 +24,7 @@ function SearchInput({ filters, handleFilterChange }) {
 
   return (
     <div style={{ display: "flex" }}>
-      <StyledSearchBtn onClick={() => setSearchStatus(!searchStatus)}>
+      <StyledSearchBtn onMouseOver={() => setSearchStatus(!searchStatus)}>
         SEARCH🔍
       </StyledSearchBtn>
       {searchStatus && (

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import SearchInput from "./SearchInput";
 import FilterSelect from "./FilterSelect";
 import styled from "styled-components";
+import { StyledButton } from "./utils/customStyled";
 
 const StyledAside = styled.aside`
   display: flex;
@@ -14,6 +15,7 @@ const StyledAside = styled.aside`
 const StyledSelectorsContainer = styled.div`
   display: flex;
   flex-direction: row;
+  align-items: center;
   width: 100%;
 `;
 
@@ -56,7 +58,6 @@ function PaymentsSelect({ payments, setFilteredPayments }) {
     if (payments && Array.isArray(payments)) {
       let filteredPayments = payments.filter((payment) => {
         const { payment_amount, payment_type, payment_recipient } = payment;
-
         const amountMatch = payment_amount.toString().includes(searchTerm);
         const typeMatch = payment_type
           .toLowerCase()
@@ -97,7 +98,7 @@ function PaymentsSelect({ payments, setFilteredPayments }) {
 
       setFilteredPayments(filteredPayments);
     } else {
-      setFilteredPayments([]); // Si payments está vacío o indefinido, establecer filteredPayments como un array vacío
+      setFilteredPayments([]);
     }
   };
 
@@ -187,18 +188,9 @@ function PaymentsSelect({ payments, setFilteredPayments }) {
           filterText={"CONCEPT"}
           filtros={uniqueFilters.uniqueTypes}
         />
-
-        <button
-          style={{
-            maxHeight: "24px",
-            cursor: "pointer",
-            borderRadius: "0px",
-            border: "none",
-          }}
-          onClick={handleFilterReset}
-        >
-          CLEAN FILTER
-        </button>
+        <StyledButton bgc={"#535353"} onClick={handleFilterReset}>
+          CLEAN FILTERS
+        </StyledButton>
       </StyledSelectorsContainer>
       <div>
         <SearchInput

@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import PaymentsListItem from "./PaymentsListItem";
+import { useNavigate } from "react-router-dom";
+
 import PaymentsSelect from "./PaymentsSelect";
 import styled from "styled-components";
 
@@ -27,6 +29,7 @@ const StyledPaymentsTH = styled.th`
 `;
 
 export default function PaymentsListLogic({ userIsLogged }) {
+  const navigate = useNavigate();
   const [payments, setPayments] = useState([]);
   const [filteredPayments, setFilteredPayments] = useState([]);
 
@@ -47,7 +50,11 @@ export default function PaymentsListLogic({ userIsLogged }) {
   };
 
   useEffect(() => {
-    loadPayments();
+    if (!userIsLogged) {
+      navigate("/login");
+    } else {
+      loadPayments();
+    }
   }, []);
 
   useEffect(() => {

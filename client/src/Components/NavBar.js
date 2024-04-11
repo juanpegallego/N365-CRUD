@@ -6,7 +6,6 @@ const StyledNavBarWrapper = styled.div`
   justify-content: center;
   padding: 15px 0px;
   width: 800px;
-
   background: #757c99;
   margin: auto;
 `;

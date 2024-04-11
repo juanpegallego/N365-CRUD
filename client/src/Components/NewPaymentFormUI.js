@@ -1,6 +1,5 @@
 import { React } from "react";
-import { StyledButton } from "./utils/customStyled";
-import { StyledInput, StyledLabel } from "./utils/customStyled";
+import { StyledInput, StyledLabel, StyledButton } from "./utils/customStyled";
 
 function PaymentUI({ handleSubmit, handleChange, loading }) {
   return (
