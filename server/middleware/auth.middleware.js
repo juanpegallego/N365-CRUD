@@ -1,20 +1,26 @@
 const { users_pool } = require("../db");
+const bcrypt = require("bcrypt");
 
 async function login(req, res) {
   const { username, password } = req.body;
   try {
     const result = await users_pool.query(
-      "SELECT * FROM users WHERE username = $1 AND password = $2",
-      [username, password]
+      "SELECT * FROM users WHERE username = $1",
+      [username]
     );
     if (result.rows.length > 0) {
-      const user = {
-        id: result.rows[0].id,
-        username: result.rows[0].username,
-      };
-      req.session.user = user;
+      const user = result.rows[0];
 
-      res.json({ message: username });
+      const passwordMatch = bcrypt.compareSync(password, user.password);
+      if (passwordMatch) {
+        req.session.user = {
+          id: user.id,
+          username: user.username,
+        };
+        res.json({ message: username });
+      } else {
+        res.status(401).json({ message: "Credenciales incorrectas" });
+      }
     } else {
       res.status(401).json({ message: "Credenciales incorrectas" });
     }
@@ -25,7 +31,6 @@ async function login(req, res) {
 }
 
 async function logout(req, res) {
-  console.log("logout");
   req.session.destroy((err) => {
     if (err) {
       res.status(500).json({ message: "Error al cerrar sesión" });
@@ -36,8 +41,6 @@ async function logout(req, res) {
 }
 
 function requireAuth(req, res, next) {
-  console.log("EN REQUIREAUTH", req.session.user);
-
   if (req.session.user) {
     next();
   } else {

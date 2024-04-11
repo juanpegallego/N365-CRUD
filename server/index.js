@@ -9,6 +9,9 @@ const sessionConfig = {
   secret: "tu_secreto",
   resave: false,
   saveUninitialized: false,
+  cookie: {
+    httpOnly: false,
+  },
 };
 
 app.use(session(sessionConfig));
