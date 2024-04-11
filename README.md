@@ -29,6 +29,30 @@ Base de Datos
 
 Antes de ejecutar el servidor, tener PostgreSQL instalado en el sistema. Luego,  configurar la base de datos ejecutando las instrucciones del archivo db.sql ubicado en la carpeta database.
 
+Las instrucciones son las siguientes:
+
+CREATE DATABASE paymentsdb
+
+CREATE TABLE payment (
+    id SERIAL PRIMARY KEY,
+    payment_amount DECIMAL(10, 2), 
+    payment_date DATE, 
+    payment_type VARCHAR(50), 
+    payment_recipient VARCHAR(255) 
+);  
+
+CREATE DATABASE credenciales
+
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    username VARCHAR(50),
+    password VARCHAR(255) 
+);  
+
+// Las pruebas fueron hechas con el usuario 'n365' y la clave 'n365' hasheada que seria '$2a$10$k14dow0JYfa7reVJU/GrVeHLw2jD.kbrsJyBuM9RHj32/0v1Cgt86'
+// Para agregar este mismo ejemplo ejecutar el siguiente comando:
+
+CREATE USER n365 WITH PASSWORD '$2a$10$k14dow0JYfa7reVJU/GrVeHLw2jD.kbrsJyBuM9RHj32/0v1Cgt86';
 
 Variables de Entorno
 
@@ -74,7 +98,7 @@ Servidor (Back-end)
 
 TO DO:
 
-Las credenciales estan viajando en texto plano. To do:serializar.
-No hay tests armados para front ni back. To do: configurar tests:
-Ordenar la logica de las carpetas y archivos de client. To do: Organizar archivos y carpetas segun sean components, views, utils, controllers. etc
-Los styled components deberian ir afuera del componente: To do: Armar una carpeta por cada item que valga la pena modularizar los styled components de la logica
+-Las credenciales estan viajando en texto plano. To do:serializar.
+-No hay tests armados para front ni back. To do: configurar tests:
+-Ordenar la logica de las carpetas y archivos de client. To do: Organizar archivos y carpetas segun sean components, views, utils, controllers. etc
+-Los styled components deberian ir afuera del componente: To do: Armar una carpeta por cada item que valga la pena modularizar los styled components de la logica
