@@ -6,11 +6,11 @@ Este proyecto consiste en una aplicación de gestión de pagos. Donde se permite
 
 El proyecto está organizado en las siguientes carpetas:
 
-##### client: Contiene el código del cliente, desarrollado con React.js.
+##### client: Contiene el código del cliente, desarrollado en React.js.
 
-##### server: Contiene el código del servidor, desarrollado con Node.js y Express.js.
+##### server: Contiene el código del servidor, desarrollado en Node.js y Express.js.
 
-##### database: Contiene el archivo db.sql con las instrucciones para la creación de las tablas en la base de datos.
+##### database: Contiene el archivo db.sql con las instrucciones a ingresar en psql para la creación de las tablas en la base de datos
 
 ### Instalación
 
@@ -93,14 +93,14 @@ El cliente estará disponible en http://localhost:3001.
 
 ### Tecnologías Utilizadas
 
-Cliente (Front-end)
+Cliente (Front)
 
     React.js
     React Router DOM
     Styled Components
     SweetAlert2
 
-Servidor (Back-end)
+Servidor (Back)
 
     Node.js
     Express.js
@@ -113,4 +113,3 @@ Servidor (Back-end)
 -Las credenciales estan viajando en texto plano. To do:serializar.
 -No hay tests armados para front ni back. To do: configurar tests:
 -Ordenar la logica de las carpetas y archivos de client. To do: Organizar archivos y carpetas segun sean components, views, utils, controllers. etc
--Los styled components deberian ir afuera del componente: To do: Armar una carpeta por cada item que valga la pena modularizar los styled components de la logica
